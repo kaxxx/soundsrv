@@ -25,8 +25,8 @@ class Lookup:
         return hostinfo[0]
 
     def scan(self):
-        ip = ipaddress.IPv4Address('192.168.2.100')
-        ipmax = ipaddress.IPv4Address('192.168.2.110')
+        ip = ipaddress.IPv4Address('192.168.2.1')
+        ipmax = ipaddress.IPv4Address('192.168.2.255')
         while (ip <= ipmax):
             hostname = lookup.namebyip(ip)
             if hostname != "unknown":
