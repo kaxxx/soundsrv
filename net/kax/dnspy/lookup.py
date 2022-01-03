@@ -37,10 +37,10 @@ class Lookup:
         for ip, hostname in self.clients_available.items():
             if lookup.checkonline(ip):
                 self.clients_online[hostname] = str(ip)
-        self.write_available()
+        self.write_online()
 
-    def write_available(self):
-        json_obj = json.dumps(self.clients_available)
+    def write_online(self):
+        json_obj = json.dumps(self.clients_online)
         file = open('clients_available.json', 'w',encoding="utf-8")
         file.write(json_obj)
         file.close()

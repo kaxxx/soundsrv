@@ -27,12 +27,12 @@ def get_clients():
     f = open('../clients_available.json')
     data = json.load(f)
     f.close()
-    remove_domain(data)
     return remove_domain(data)
 
 def remove_domain(data):
     resp = {}
-    for (k, v) in data.items():
+    for (v, k) in data.items():
+        print(str(k).split('.')[0])
         resp[str(k).split('.')[0]] = v
     return resp
 
