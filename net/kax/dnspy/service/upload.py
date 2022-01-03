@@ -27,7 +27,7 @@ def get_clients():
     f = open('../clients_available.json')
     data = json.load(f)
     f.close()
-    return remove_domain(data)
+    return data
 
 def remove_domain(data):
     resp = {}
