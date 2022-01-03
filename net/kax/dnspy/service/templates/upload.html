@@ -1,150 +1,36 @@
 <html>
 <head>
-    <script src="jquery-3.5.1.min.js"></script>
     <title>EntrySound Configuration</title>
-    
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <style>
-
-* {
-  box-sizing: border-box;
-}
-
-
-    .mainbod{
-        width: 90%;
-        float: center;
-    }
-
-    .headtext {
-        margin-left: 10px;
-        margin-right: 70%;
-        text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5.7px);
-        -webkit-backdrop-filter: blur(5.7px);
-        border: 1px solid rgba(255, 255, 255, 0.56);
-    }
-
-
-    leftbar {
-        float: left;
-        width: 30%;
-        margin-left: 10px;
-        text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5.7px);
-        -webkit-backdrop-filter: blur(5.7px);
-        border: 1px solid rgba(255, 255, 255, 0.56);
-    }
-
-    mainwindow {
-        float: right;
-        padding: 100px;
-        margin-left: 20px;
-        margin-right: 10px;
-        width: 65%;
-        text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5.7px);
-        -webkit-backdrop-filter: blur(5.7px);
-        border: 1px solid rgba(255, 255, 255, 0.56);
-    }
-
-    .glass{
-        text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5.7px);
-        -webkit-backdrop-filter: blur(5.7px);
-        border: 1px solid rgba(255, 255, 255, 0.56);
-    }
-
-    .neobox{
-        text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-        border-radius: 50px;
-        background: #382e31;
-        box-shadow:  28px 28px 56px #30272a,
-             -28px -28px 56px #403538;
-    }
-
-    .gradientbg{
-        background: rgb(200,62,136);
-background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22%, rgba(255,56,6,1) 98%);
-    }
-
-    
-
-    </style>
-
-
-
-
-    
-
+    <!-- Importing Icon and CSS -->
+    <link rel="icon" type="image/x-icon" href="localhost/media/ES.ico">
+    <link rel="stylesheet" href="http://localhost/svr/net/kax/dnspy/service/templates/css/style.css">
 </head>
 
-<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    </script>
-
 <body class="gradientbg">
-
+    <!-- Main Webpage -->
     <h1 class="headtext">EntrySound Configuration</h1>
-<section>
-    <leftbar>
-        <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
+    <section>
+        <leftbar>
+            <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
         
-    </leftbar>
-    <mainwindow>
-        <p>Bitte lade hier die Datei hoch.</p>
-        <P> Du bist </p>
-        <form action='/uploader' method="POST" enctype = "multipart/form-data">
-        
-        <input type="text" id="name" name="name">
-        <input type="file" id="upload" name="file" accept=".mp3" required>
-        <input type="submit" value="Submit" onclick=alertsuccess()>
-        <button onclick="saveFile();">Absenden</button>
-        </form>        
-        <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
-    </mainwindow>
+        </leftbar>
+        <mainwindow>
+            <p>Bitte lade hier die Datei hoch.</p>
+            <P> Du bist </p>
+            <form action='/uploader' method="POST" enctype= "multipart/form-data">   
+                <input type="text" id="name" name="name">
+                <input type="file" id="upload" name="file" accept=".mp3">
+                <input type="submit" onclick=alertsuccess()>
+            </form>        
+            <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
+        </mainwindow>
     
-</section>
+    </section>
 
-
-<script>
-        var clientname;
-
-        
-        $.ajax({
-
-            type: "GET",
-            url: "../hostname",
-            dataType: "text",
-            success: function(response){
-                clientname = response
-                document.getElementById("name").value = clientname;
-            }
-            }) 
-
-    function alertsuccess(){
-        alert('Die Datei wurde erfolgreich hochgeladen.');
-    }
-
-    async function saveFile() {        
-        let formData = new FormData();
-        formData.append("file", upload.files[0]);
-        await fetch('/uploader', {method: "POST", body: formData});
-        alert('Die Datei wurde erfolgereich hochgeladen!');
-
-    }
-
-    
-</script>
+    <!-- Including JQuery and javascript code -->
+    <script src="http://localhost/svr/net/kax/dnspy/service/templates/js/jquery-3.6.0.min.js"></script>
+    <script src="http://localhost/svr/net/kax/dnspy/service/templates/js/upload.js"></script>
 
 </body>
 </html>
