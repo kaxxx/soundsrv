@@ -33,9 +33,7 @@ def get_clients():
 def remove_domain(data):
     resp = {}
     for (k, v) in data.items():
-        print(str(k).split('.')[0])
-        print(v)
-        resp[str(k).split('.')[0]]=v
+        resp[str(k).split('.')[0]] = v
     return resp
 
 @app.route('/hostname', methods = ['GET'])
