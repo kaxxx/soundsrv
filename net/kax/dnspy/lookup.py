@@ -34,19 +34,27 @@ class Lookup:
             ip = ip + 1
 
     def ping_available(self):
-        for ip, hostname in self.clients_available.items():
+        for hostname, ip in self.clients_available.items():
             if lookup.checkonline(ip):
                 self.clients_online[hostname] = str(ip)
-        self.write_available()
+        self.write_online()
 
-    def write_available(self):
-        json_obj = json.dumps(self.clients_available)
+    def write_online(self):
+        json_obj = json.dumps(self.clients_online)
         file = open('clients_available.json', 'w',encoding="utf-8")
         file.write(json_obj)
         file.close()
 
     def checkonline(self, SOMEHOST):
         return True if os.system("ping -c 1 " + str(SOMEHOST).strip(";") + " >/dev/null 2>&1") == 0 else False
+
+    def remove_domain(self, data):
+        resp = {}
+        for (k, v) in data.items():
+            print("key: "+str(k))
+            print("value: "+str(v).split('.')[0])
+            resp[str(v.split('.')[0])] = k
+        return resp
 
 lookup = Lookup()
 
