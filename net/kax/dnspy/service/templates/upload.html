@@ -105,8 +105,8 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
         <P> Du bist </p>
         <form action='/uploader' method="POST">
         
-        <p id='name'></p>
-        <input type="file" id="upload" name="myInput" accept=".mp3" required>
+        <input type="text" id="name" name="name">
+        <input type="file" id="upload" name="file" accept=".mp3" required>
         <input type="submit" value="Submit" onclick=alertsuccess()>
         <button onclick="saveFile();">Absenden</button>
         </form>        
@@ -127,7 +127,7 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
             dataType: "text",
             success: function(response){
                 clientname = response
-                document.getElementById("name").innerHTML = clientname;
+                document.getElementById("name").value = clientname;
             }
             }) 
 
