@@ -3,13 +3,13 @@
     <script src="jquery-3.5.1.min.js"></script>
     <title>EntrySound Configuration</title>
     
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="localhost/media/ES.ico">
 
-    <style>
+<style>
 
-* {
-  box-sizing: border-box;
-}
+    * {
+        box-sizing: border-box;
+    }
 
 
     .mainbod{
@@ -69,12 +69,12 @@
         border-radius: 50px;
         background: #382e31;
         box-shadow:  28px 28px 56px #30272a,
-             -28px -28px 56px #403538;
+        -28px -28px 56px #403538;
     }
 
     .gradientbg{
         background: rgb(200,62,136);
-background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22%, rgba(255,56,6,1) 98%);
+        background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22%, rgba(255,56,6,1) 98%);
     }
 
     
@@ -88,48 +88,43 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
 
 </head>
 
-<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    </script>
-
 <body class="gradientbg">
 
     <h1 class="headtext">EntrySound Configuration</h1>
-<section>
-    <leftbar>
-        <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
+    <section>
+        <leftbar>
+            <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
         
-    </leftbar>
-    <mainwindow>
-        <p>Bitte lade hier die Datei hoch.</p>
-        <P> Du bist </p>
-        <form action='/uploader' method="POST" enctype= "multipart/form-data">
-        
-        <input type="text" id="name" name="name">
-        <input type="file" id="upload" name="file" accept=".mp3">
-        <input type="submit" onclick=alertsuccess()>
-        <button onclick="saveFile();">Absenden</button>
-        </form>        
-        <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
-    </mainwindow>
+        </leftbar>
+        <mainwindow>
+            <p>Bitte lade hier die Datei hoch.</p>
+            <P> Du bist </p>
+            <form action='/uploader' method="POST" enctype= "multipart/form-data">   
+                <input type="text" id="name" name="name">
+                <input type="file" id="upload" name="file" accept=".mp3">
+                <input type="submit" onclick=alertsuccess()>
+                <button onclick="saveFile();">Absenden</button>
+            </form>        
+            <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
+        </mainwindow>
     
-</section>
+    </section>
 
 
 <script>
-        var clientname;
+    var clientname;
 
         
-        $.ajax({
+    $.ajax({
 
-            type: "GET",
-            url: "../hostname",
-            dataType: "text",
-            success: function(response){
-                clientname = response
-                document.getElementById("name").value = clientname;
-            }
-            }) 
+        type: "GET",
+        url: "../hostname",
+        dataType: "text",
+        success: function(response){
+            clientname = response
+            document.getElementById("name").value = clientname;
+        }
+    }) 
 
     function alertsuccess(){
         alert('Die Datei wurde erfolgreich hochgeladen.');
@@ -140,11 +135,7 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
         formData.append("file", upload.files[0]);
         await fetch('/uploader', {method: "POST", body: formData});
         alert('Die Datei wurde erfolgereich hochgeladen!');
-
     }
-
-    
 </script>
-
 </body>
 </html>
