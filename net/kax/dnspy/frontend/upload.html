@@ -98,44 +98,49 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
 <section>
     <leftbar>
         <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
-        
     </leftbar>
     <mainwindow>
         <p>Bitte lade hier die Datei hoch.</p>
-        <P> Du bist </p>
-        <form action='/uploader' method="POST" enctype= "multipart/form-data">
-        
-        <input type="text" id="name" name="name">
-        <input type="file" id="upload" name="file" accept=".mp3">
-        <input type="submit" onclick=alertsuccess()>
-        <button onclick="saveFile();">Absenden</button>
-        </form>        
+        <input type="file" id="upload" name="myInput" onchange="readFile(this.files);" accept=".mp3" required>
         <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
+        <button onclick="saveFile();">Absenden</button>
     </mainwindow>
     
 </section>
 
 
 <script>
-        var clientname;
+	function readFile(files) {
+		var fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(files[0]);
+			fileReader.onload = function(e) {
+				playAudioFile(e.target.result);
+				console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+			}
+	}
+	function playAudioFile(file) {
+		var context = new window.AudioContext();
+			context.decodeAudioData(file, function(buffer) {
+				var source = context.createBufferSource();
+					source.buffer = buffer;
+					source.loop = false;
+					source.connect(context.destination);
+					source.start(0); 
+			});
+	}
 
-        
+    async function saveFile() {
+
+        vat clientname;
+
         $.ajax({
-
-            type: "GET",
-            url: "../hostname",
-            dataType: "text",
-            success: function(response){
-                clientname = response
-                document.getElementById("name").value = clientname;
+            url :'localhost:5000/hostname',
+            success: function(data) {
+                clientname = data;
+                alert('Hostname is' + data);
             }
-            }) 
 
-    function alertsuccess(){
-        alert('Die Datei wurde erfolgreich hochgeladen.');
-    }
-
-    async function saveFile() {        
+        });
         let formData = new FormData();
         formData.append("file", upload.files[0]);
         await fetch('/uploader', {method: "POST", body: formData});
