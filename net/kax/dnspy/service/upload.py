@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import socket
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "../uploads/"
@@ -37,6 +38,10 @@ def remove_domain(data):
         resp[str(k).split('.')[0]]=v
     return resp
 
+@app.route('/hostname', methods = ['GET'])
+def get_hostname():
+    name = socket.gethostname()
+    return name
 
 
 if __name__ == '__main__':
