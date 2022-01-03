@@ -40,8 +40,11 @@ def remove_domain(data):
 
 @app.route('/hostname', methods = ['GET'])
 def get_hostname():
-    name = socket.gethostname()
-    return name
+    ip = request.remote_addr
+    name = socket.gethostbyaddr(ip)
+    
+    return name[0]
+
 
 
 if __name__ == '__main__':

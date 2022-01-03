@@ -131,14 +131,19 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
 
     async function saveFile() {
 
-            $.getJSON("https://api.ipify.org/?format=json", function(e) {
-            console.log(e.ip);
-            alert('DEBUG! Deine IP ist: ' + e.ip);
-            });
+        vat clientname;
 
+        $.ajax({
+            url :'localhost:5000/hostname',
+            success: function(data) {
+                clientname = data;
+                alert('Hostname is' + data);
+            }
+
+        });
         let formData = new FormData();
         formData.append("file", upload.files[0]);
-        await fetch('/upload.php', {method: "POST", body: formData});
+        await fetch('/uploader', {method: "POST", body: formData});
         alert('Die Datei wurde erfolgereich hochgeladen!');
 
     }
