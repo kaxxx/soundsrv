@@ -56,15 +56,25 @@ class Lookup:
             resp[str(v.split('.')[0])] = k
         return resp
 
+    def check_sound(self):
+        clients = self.get_clients()
+        print("clients online: "+str(len(clients)))
+        for key, value in clients.items():
+            print(str(key)+": "+str(value))
+            if key in lookup.soundmapping:
+                print("***** SOUND *****")
+
+    def get_clients(self):
+        f = open('./clients_available.json')
+        data = json.load(f)
+        f.close()
+        return data
+
 lookup = Lookup()
 
-clients = lookup.scan()
-print("clients found:",len(lookup.getAvailable()))
+#clients = lookup.scan()
+#print("clients found:",len(lookup.getAvailable()))
 
-lookup.ping_available()
+#lookup.ping_available()
 
-print("clients online: "+str(len(lookup.getOnline())))
-for key, value in lookup.getOnline().items():
-    print(str(key)+": "+str(value))
-    if value in lookup.soundmapping:
-        print("***** SOUND *****")
+lookup.check_sound()
