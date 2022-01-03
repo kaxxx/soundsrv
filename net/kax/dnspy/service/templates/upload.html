@@ -103,7 +103,7 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
     <mainwindow>
         <p>Bitte lade hier die Datei hoch.</p>
         <P> Du bist </p>
-        <form action='/uploader' method="POST">
+        <form action='/uploader' method="POST" enctype = "multipart/form-data">
         
         <input type="text" id="name" name="name">
         <input type="file" id="upload" name="file" accept=".mp3" required>
