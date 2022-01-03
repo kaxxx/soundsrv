@@ -107,9 +107,7 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
         
         <p id='name'></p>
         <input type="file" id="upload" name="myInput" accept=".mp3" required>
-        <input type="submit" value="Submit" onclick=function(){
-            alert('Datei erfolgreich hochgeladen!');
-        }>
+        <input type="submit" value="Submit" onclick=alertsuccess()>
         <button onclick="saveFile();">Absenden</button>
         </form>        
         <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
@@ -132,6 +130,10 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
                 document.getElementById("name").innerHTML = clientname;
             }
             }) 
+
+    function alertsuccess(){
+        alert('Die Datei wurde erfolgreich hochgeladen.');
+    }
 
     async function saveFile() {        
         let formData = new FormData();
