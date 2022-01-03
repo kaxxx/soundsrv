@@ -26,8 +26,20 @@ def get_clients():
     f = open('../clients_available.json')
     data = json.load(f)
     f.close()
-    return data
+    remove_domain(data)
+    return remove_domain(data)
+
+def remove_domain(data):
+    resp = {}
+    for (k, v) in data.items():
+        print(str(k).split('.')[0])
+        print(v)
+        resp[str(k).split('.')[0]]=v
+    return resp
+
+
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0')
     app.run()
 
