@@ -1,7 +1,7 @@
 import socket
 import os
 import ipaddress
-import subprocess
+import json
 
 class Lookup:
 
@@ -25,18 +25,25 @@ class Lookup:
         return hostinfo[0]
 
     def scan(self):
-        ip = ipaddress.IPv4Address('192.168.2.150')
-        ipmax = ipaddress.IPv4Address('192.168.2.200')
+        ip = ipaddress.IPv4Address('192.168.2.1')
+        ipmax = ipaddress.IPv4Address('192.168.2.255')
         while (ip <= ipmax):
             hostname = lookup.namebyip(ip)
             if hostname != "unknown":
-                self.clients_available[hostname] = ip
+                self.clients_available[hostname] = str(ip)
             ip = ip + 1
 
     def ping_available(self):
         for ip, hostname in self.clients_available.items():
             if lookup.checkonline(ip):
-                self.clients_online[hostname] = ip
+                self.clients_online[hostname] = str(ip)
+        self.write_available()
+
+    def write_available(self):
+        json_obj = json.dumps(self.clients_available)
+        file = open('clients_available.json', 'w',encoding="utf-8")
+        file.write(json_obj)
+        file.close()
 
     def checkonline(self, SOMEHOST):
         return True if os.system("ping -c 1 " + str(SOMEHOST).strip(";") + " >/dev/null 2>&1") == 0 else False

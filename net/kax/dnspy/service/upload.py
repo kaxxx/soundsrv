@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import json
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "../uploads/"
@@ -19,6 +20,13 @@ def upload_file():
         n = request.form['name']
         f.save(app.config['UPLOAD_FOLDER']+"/"+n)
         return 'file uploaded successfully'
+
+@app.route('/clients', methods = ['GET'])
+def get_clients():
+    f = open('../clients_available.json')
+    data = json.load(f)
+    f.close()
+    return data
 
 if __name__ == '__main__':
     app.run()
