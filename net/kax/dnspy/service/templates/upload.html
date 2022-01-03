@@ -103,11 +103,11 @@ background: linear-gradient(176deg, rgba(200,62,136,1) 0%, rgba(201,43,128,1) 22
     <mainwindow>
         <p>Bitte lade hier die Datei hoch.</p>
         <P> Du bist </p>
-        <form action='/uploader' method="POST" enctype= "multipart/form-data">
+        <form action='/uploader' method="POST" enctype = "multipart/form-data">
         
         <input type="text" id="name" name="name">
-        <input type="file" id="upload" name="file" accept=".mp3">
-        <input type="submit" onclick=alertsuccess()>
+        <input type="file" id="upload" name="file" accept=".mp3" required>
+        <input type="submit" value="Submit" onclick=alertsuccess()>
         <button onclick="saveFile();">Absenden</button>
         </form>        
         <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
