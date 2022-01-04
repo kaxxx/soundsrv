@@ -20,7 +20,9 @@ def upload_file():
         f = request.files['file']
         n = request.form['name']
         f.save(app.config['UPLOAD_FOLDER']+"/"+n)
-        return 'file uploaded successfully'
+        return render_template('uploaded.html')
+    else:
+        return render_template('error.html')
 
 @app.route('/clients', methods = ['GET'])
 def get_clients():

@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-}
+
 
 
 .mainbod{
@@ -46,7 +44,12 @@ mainwindow {
     border: 1px solid rgba(255, 255, 255, 0.56);
 }
 
-.glass{
+middlewindow {
+    float: left;
+    padding: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 80%;
     text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -55,12 +58,13 @@ mainwindow {
     border: 1px solid rgba(255, 255, 255, 0.56);
 }
 
-.neobox{
+.glass{
     text-align:center; font-family:verdana; background: rgba(255, 255, 255, 0.32);
-    border-radius: 50px;
-    background: #382e31;
-    box-shadow:  28px 28px 56px #30272a,
-    -28px -28px 56px #403538;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+    border: 1px solid rgba(255, 255, 255, 0.56);
 }
 
 .gradientbg{
