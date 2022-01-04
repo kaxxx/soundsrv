@@ -85,6 +85,6 @@ class checkup:
     while True:
         
         for u in x.getAvailable:
-            print
+            print(u)
             
         time.sleep(60)
