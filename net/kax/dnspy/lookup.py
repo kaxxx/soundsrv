@@ -2,6 +2,7 @@ import socket
 import os
 import ipaddress
 import json
+import time
 
 class Lookup:
 
@@ -78,3 +79,12 @@ lookup = Lookup()
 #lookup.ping_available()
 
 lookup.check_sound()
+
+class checkup:
+    x = lookup()
+    while True:
+        
+        for u in x.getAvailable:
+            print
+            
+        time.sleep(60)
