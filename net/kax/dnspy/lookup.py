@@ -77,7 +77,8 @@ class Lookup:
         return resp
 
     def check_sound(self):
-        #self.load_soundmapping()
+        #TODO: If new upload comes in during processing, it will be overwritten by
+        #TODO: update_soundmapping() later in this method. -> Make a reliable persistance
         clients = dict(self.load_soundmapping())
         print(clients)
         print("clients soundmapping: "+str(len(clients)))
