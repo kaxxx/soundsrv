@@ -8,16 +8,9 @@ class Lookup:
 
     clients_available = {}
     clients_online = {}
-    soundmapping = {
-        'iPad.fritz.box': {
-            'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/Pixel-4a.fritz.box.mp3',
-            'played': False
-        },
-        'kay-P10-2.fritz.box': {
-            'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/kay-P10-2.fritz.box.mp3',
-            'played': False
-        }
-    }
+
+    def __init__(self, soundmapping):
+        self.soundmapping = soundmapping
 
     def getAvailable(self):
         return self.clients_available
@@ -87,11 +80,11 @@ class Lookup:
         f.close()
         return data
 
-lookup = Lookup()
+#lookup = Lookup()
 
 #clients = lookup.scan()
 #print("clients found:",len(lookup.getAvailable()))
 
 #lookup.ping_available()
 
-lookup.check_sound()
+#lookup.check_sound()
