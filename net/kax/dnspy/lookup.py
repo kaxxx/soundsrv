@@ -2,12 +2,22 @@ import socket
 import os
 import ipaddress
 import json
+from playsound import playsound
 
 class Lookup:
 
-    clients_available={}
-    clients_online={}
-    soundmapping={'kay-P10-2.fritz.box':'/home/kax/Musik/Wischmeyer_Ostern.mp3'}
+    clients_available = {}
+    clients_online = {}
+    soundmapping = {
+        'iPad.fritz.box': {
+            'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/Pixel-4a.fritz.box.mp3',
+            'played': False
+        },
+        'kay-P10-2.fritz.box': {
+            'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/kay-P10-2.fritz.box.mp3',
+            'played': False
+        }
+    }
 
     def getAvailable(self):
         return self.clients_available
@@ -57,14 +67,21 @@ class Lookup:
         return resp
 
     def check_sound(self):
-        clients = self.get_clients()
-        print("clients online: "+str(len(clients)))
+        clients = self.soundmapping
+        print("clients soundmapping: "+str(len(clients)))
+        print(clients)
         for key, value in clients.items():
-            print(str(key)+": "+str(value))
-            if key in lookup.soundmapping:
-                print("***** SOUND *****")
+            print("sound: "+value['sound'])
+            print(str(key)+": "+str(value['sound']))
+            if self.checkonline(key) and value['played'] == False:
+                print("***** SOUND: "+value['sound']+" *****")
+                playsound(value['sound'])
+                self.soundmapping[key]['played'] = True
+            elif self.checkonline(key) == False:
+                self.soundmapping[key]['played'] = False
+        json.dumps(clients)
 
-    def get_clients(self):
+    def get_clients_hdd(self):
         f = open('./clients_available.json')
         data = json.load(f)
         f.close()

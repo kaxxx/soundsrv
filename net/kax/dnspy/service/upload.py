@@ -19,7 +19,7 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         n = request.form['name']
-        f.save(app.config['UPLOAD_FOLDER']+"/"+n)
+        f.save(app.config['UPLOAD_FOLDER']+"/"+n+".mp3")
         return 'file uploaded successfully'
 
 @app.route('/clients', methods = ['GET'])
