@@ -11,7 +11,3 @@ $.ajax({
         document.getElementById("name").value = clientname;
     }
 }) 
-
-function alertsuccess(){
-    alert('Die Datei wurde erfolgreich hochgeladen.');
-}

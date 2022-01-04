@@ -14,6 +14,18 @@ def hello_world():
 def upload():
     return render_template('upload.html')
 
+@app.route('/stylesheet')
+def stylesheet():
+    return render_template('css/style.css')
+
+@app.route('/findhost')
+def findhost():
+    return render_template('js/upload.js')
+
+@app.route('/jquery')
+def jquery():
+    return render_template('js/jquery-3.6.0.min.js')
+
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':

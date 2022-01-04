@@ -4,7 +4,8 @@
 
     <!-- Importing Icon and CSS -->
     <link rel="icon" type="image/x-icon" href="localhost/media/ES.ico">
-    <link rel="stylesheet" href="http://localhost/svr/net/kax/dnspy/service/templates/css/style.css">
+    <link rel="stylesheet" href="/stylesheet">
+    <style> * {box-sizing: border-box;} </style>
 </head>
 
 <body class="gradientbg">
@@ -21,7 +22,7 @@
             <form action='/uploader' method="POST" enctype= "multipart/form-data">   
                 <input type="text" id="name" name="name">
                 <input type="file" id="upload" name="file" accept=".mp3">
-                <input type="submit" onclick=alertsuccess()>
+                <input type="submit">
             </form>        
             <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
         </mainwindow>
@@ -29,8 +30,8 @@
     </section>
 
     <!-- Including JQuery and javascript code -->
-    <script src="http://localhost/svr/net/kax/dnspy/service/templates/js/jquery-3.6.0.min.js"></script>
-    <script src="http://localhost/svr/net/kax/dnspy/service/templates/js/upload.js"></script>
+    <script src="/jquery"></script>
+    <script src="/findhost"></script>
 
 </body>
 </html>
