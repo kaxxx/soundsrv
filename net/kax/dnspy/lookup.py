@@ -2,6 +2,8 @@ import socket
 import os
 import ipaddress
 import json
+import time
+
 from playsound import playsound
 
 class Lookup:
@@ -9,8 +11,20 @@ class Lookup:
     clients_available = {}
     clients_online = {}
 
-    def __init__(self, soundmapping):
-        self.soundmapping = soundmapping
+    def __init__(self):
+        self.load_soundmapping()
+
+    def load_soundmapping(self):
+        # read file
+        with open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json', 'r') as myfile:
+            data = myfile.read()
+        self.soundmapping = json.loads(data)
+
+    def update_soundmapping(self):
+        filename = '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json'
+        with open(filename, 'w') as f:
+            json.dump(self.soundmapping, f)
+        f.close()
 
     def getAvailable(self):
         return self.clients_available
@@ -31,14 +45,14 @@ class Lookup:
         ip = ipaddress.IPv4Address('192.168.2.1')
         ipmax = ipaddress.IPv4Address('192.168.2.255')
         while (ip <= ipmax):
-            hostname = lookup.namebyip(ip)
+            hostname = self.namebyip(ip)
             if hostname != "unknown":
                 self.clients_available[hostname] = str(ip)
             ip = ip + 1
 
     def ping_available(self):
         for hostname, ip in self.clients_available.items():
-            if lookup.checkonline(ip):
+            if self.checkonline(ip):
                 self.clients_online[hostname] = str(ip)
         self.write_online()
 
@@ -63,6 +77,9 @@ class Lookup:
         clients = self.soundmapping
         print("clients soundmapping: "+str(len(clients)))
         print(clients)
+        if len(clients) == 0:
+            time.sleep(10000)
+            return
         for key, value in clients.items():
             print("sound: "+value['sound'])
             print(str(key)+": "+str(value['sound']))
@@ -70,8 +87,10 @@ class Lookup:
                 print("***** SOUND: "+value['sound']+" *****")
                 playsound(value['sound'])
                 self.soundmapping[key]['played'] = True
+                self.update_soundmapping()
             elif self.checkonline(key) == False:
                 self.soundmapping[key]['played'] = False
+                self.update_soundmapping()
         json.dumps(clients)
 
     def get_clients_hdd(self):

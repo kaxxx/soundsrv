@@ -1,18 +1,22 @@
 from lookup import Lookup
 from service import upload
+from flask import Flask, render_template, request
+from  multiprocessing import Process
 
-soundmapping = {
-    'iPad.fritz.box': {
-        'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/Pixel-4a.fritz.box.mp3',
-        'played': False
-    },
-    'kay-P10-2.fritz.box': {
-        'sound': '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/kay-P10-2.fritz.box.mp3',
-        'played': False
-    }
-}
+soundmapping = {}
 
-lookup = Lookup(soundmapping)
+def subprocess():
+    upload.start_srv()
+
+Process(target=subprocess).start()
+
+
+#upload.set_soundmapping(soundmapping)
+
+print(".... start lookup")
+lookup = Lookup()
 while True:
+    lookup.load_soundmapping()
     lookup.check_sound()
+    print("... next try...")
 
