@@ -78,7 +78,7 @@ class Lookup:
         print("clients soundmapping: "+str(len(clients)))
         print(clients)
         if len(clients) == 0:
-            time.sleep(10000)
+            #time.sleep(3000)
             return
         for key, value in clients.items():
             print("sound: "+value['sound'])
