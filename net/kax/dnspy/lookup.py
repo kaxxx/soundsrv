@@ -10,6 +10,7 @@ class Lookup:
 
     clients_available = {}
     clients_online = {}
+    soundmapping = {}
 
     def __init__(self):
         self.load_soundmapping()
@@ -18,7 +19,9 @@ class Lookup:
         # read file
         with open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json', 'r') as myfile:
             data = myfile.read()
+        myfile.close()
         self.soundmapping = json.loads(data)
+        return self.soundmapping
 
     def update_soundmapping(self):
         filename = '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json'
@@ -63,7 +66,7 @@ class Lookup:
         file.close()
 
     def checkonline(self, SOMEHOST):
-        return True if os.system("ping -c 1 " + str(SOMEHOST).strip(";") + " >/dev/null 2>&1") == 0 else False
+        return True if os.system("ping -c 2 " + str(SOMEHOST).strip(";") + " >/dev/null 2>&1") == 0 else False
 
     def remove_domain(self, data):
         resp = {}
@@ -74,24 +77,30 @@ class Lookup:
         return resp
 
     def check_sound(self):
-        clients = self.soundmapping
+        #self.load_soundmapping()
+        clients = dict(self.load_soundmapping())
+        print(clients)
         print("clients soundmapping: "+str(len(clients)))
         print(clients)
         if len(clients) == 0:
-            #time.sleep(3000)
+            time.sleep(3000)
             return
         for key, value in clients.items():
-            print("sound: "+value['sound'])
-            print(str(key)+": "+str(value['sound']))
-            if self.checkonline(key) and value['played'] == False:
-                print("***** SOUND: "+value['sound']+" *****")
-                playsound(value['sound'])
-                self.soundmapping[key]['played'] = True
-                self.update_soundmapping()
+            #print("sound: "+clients[key]['sound'])
+            print(str(key)+": "+str(clients[key]['sound']))
+            if self.checkonline(key) and clients[key]['played'] == False:
+                print("***** SOUND: "+clients[key]['sound']+" *****")
+                try:
+                    playsound(clients[key]['sound'])
+                    clients[key]['played'] = True
+                except:
+                    print("ERROR playing sound: "+clients[key]['sound'])
+
             elif self.checkonline(key) == False:
-                self.soundmapping[key]['played'] = False
-                self.update_soundmapping()
-        json.dumps(clients)
+                clients[key]['played'] = False
+
+        self.soundmapping = clients
+        self.update_soundmapping()
 
     def get_clients_hdd(self):
         f = open('./clients_available.json')

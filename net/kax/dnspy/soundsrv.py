@@ -13,8 +13,10 @@ Process(target=subprocess).start()
 
 #upload.set_soundmapping(soundmapping)
 
-print(".... start lookup")
+#print(".... start lookup")
 lookup = Lookup()
+#lookup.scan()
+#lookup.ping_available()
 while True:
     lookup.load_soundmapping()
     lookup.check_sound()

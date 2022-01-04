@@ -57,23 +57,33 @@ def load_soundmapping():
     # read file
     with open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json', 'r') as myfile:
         data = myfile.read()
-        return json.loads(data)
+    myfile.close()
+
+    return json.loads(data)
 
 def do_soundmapping(name, filename):
-    mapping  = load_soundmapping()
+    mapping = {}
+
+    mapping  = dict(load_soundmapping())
+    print ("old mapping: "+str(mapping))
     new_element = {}
     new_element['sound'] = filename
     new_element['played'] = False
-    #if name in new_mapping:
-    #    print(name+" exists!")
-    #else:
+
+    if name in mapping.keys():
+        print(name+" exists!")
+    else:
+        print(name+" NOT existing!")
     mapping[name] = new_element
+    print ("new mapping: "+str(mapping))
     app.soundmapping = mapping
-    print(app.soundmapping)
+
     filename = "/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json"
+    #json_object = json.dumps(app.soundmapping, indent = 4)
     with open(filename, 'w') as f:
         json.dump(app.soundmapping, f)
     f.close()
+
 
 @app.route('/clients', methods=['GET'])
 def get_clients():
