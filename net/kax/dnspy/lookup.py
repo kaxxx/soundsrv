@@ -80,15 +80,14 @@ class Lookup:
         #TODO: If new upload comes in during processing, it will be overwritten by
         #TODO: update_soundmapping() later in this method. -> Make a reliable persistance
         clients = dict(self.load_soundmapping())
-        print(clients)
         print("clients soundmapping: "+str(len(clients)))
-        print(clients)
+        #print(clients)
         if len(clients) == 0:
             time.sleep(3000)
             return
         for key, value in clients.items():
             #print("sound: "+clients[key]['sound'])
-            print(str(key)+": "+str(clients[key]['sound']))
+            print(str(key)+" - sound:"+str(clients[key]['sound'])+" ... try to ping!")
             if self.checkonline(key) and clients[key]['played'] == False:
                 print("***** SOUND: "+clients[key]['sound']+" *****")
                 try:
@@ -98,7 +97,10 @@ class Lookup:
                     print("ERROR playing sound: "+clients[key]['sound'])
 
             elif self.checkonline(key) == False:
+                print(key+" not reachable, no play needed and set sound flag to False.")
                 clients[key]['played'] = False
+            else:
+                print(key+" sound was already played.")
 
         self.soundmapping = clients
         self.update_soundmapping()
