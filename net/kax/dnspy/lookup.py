@@ -17,14 +17,14 @@ class Lookup:
 
     def load_soundmapping(self):
         # read file
-        with open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json', 'r') as myfile:
+        with open('./uploads/soundmapping.json', 'r') as myfile:
             data = myfile.read()
         myfile.close()
         self.soundmapping = json.loads(data)
         return self.soundmapping
 
     def update_soundmapping(self):
-        filename = '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json'
+        filename = './uploads/soundmapping.json'
         with open(filename, 'w') as f:
             json.dump(self.soundmapping, f)
         f.close()

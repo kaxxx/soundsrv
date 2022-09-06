@@ -5,7 +5,7 @@ import socket
 import os
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = '/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads' #os.path.abspath("./uploads")
+app.config['UPLOAD_FOLDER'] = '../uploads' #os.path.abspath("./uploads")
 
 app.config['MAX_CONTENT_PATH'] = 9999999
 app.soundmapping = {}
@@ -45,7 +45,7 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         n = request.form['name']
-        filename = "/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/" + n + ".mp3"
+        filename = "../uploads/" + n + ".mp3"
         print(filename)
         f.save(filename)
         do_soundmapping(n, filename)
@@ -55,7 +55,7 @@ def upload_file():
 
 def load_soundmapping():
     # read file
-    with open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json', 'r') as myfile:
+    with open('../uploads/soundmapping.json', 'r') as myfile:
         data = myfile.read()
     myfile.close()
 
@@ -78,7 +78,7 @@ def do_soundmapping(name, filename):
     print ("new mapping: "+str(mapping))
     app.soundmapping = mapping
 
-    filename = "/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/uploads/soundmapping.json"
+    filename = "../uploads/soundmapping.json"
     #json_object = json.dumps(app.soundmapping, indent = 4)
     with open(filename, 'w') as f:
         json.dump(app.soundmapping, f)
@@ -87,7 +87,7 @@ def do_soundmapping(name, filename):
 
 @app.route('/clients', methods=['GET'])
 def get_clients():
-    f = open('/home/kax/IdeaProjects/DNSPy/net/kax/dnspy/clients_available.json')
+    f = open('./clients_available.json')
     data = json.load(f)
     f.close()
     return data
@@ -104,9 +104,13 @@ def remove_domain(data):
 @app.route('/hostname', methods=['GET'])
 def get_hostname():
     ip = request.remote_addr
-    name = socket.gethostbyaddr(ip)
+    print(ip)
+    try:
+        name = socket.gethostbyaddr(ip)[0]
+    except:
+        name = ip
 
-    return name[0]
+    return name
 
 def get_soundmappig():
     return app.soundmapping

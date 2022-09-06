@@ -8,8 +8,9 @@ soundmapping = {}
 
 def subprocess():
     upload.start_srv()
-
-Process(target=subprocess).start()
+    
+if __name__ == '__main__':
+    Process(target=subprocess).start()
 
 
 #upload.set_soundmapping(soundmapping)

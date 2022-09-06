@@ -8,23 +8,24 @@
     <style> * {box-sizing: border-box;} </style>
 </head>
 
-<body class="gradientbg">
+<body>
     <!-- Main Webpage -->
-    <h1 class="headtext">EntrySound Configuration</h1>
+    <h1 class="headtext">Sound Server Config</h1>
     <section>
         <leftbar>
-            <p>Willkommen! <br>Bitte lade hier eine mp3 Datei hoch die abgespielt werden soll, <br>wenn sich dein Gerät mit dem WLAN Verbindet.</p>
+            <p>Willkommen! Bitte lade hier eine Audio Datei hoch. Diese wird abgespielt wenn du dich mit dem Netzwerk verbindest.</p>
         
         </leftbar>
         <mainwindow>
             <p>Bitte lade hier die Datei hoch.</p>
-            <P> Du bist </p>
+            <p id="whois">Du bist </p>
             <form action='/uploader' method="POST" enctype= "multipart/form-data">   
                 <input type="text" id="name" name="name">
                 <input type="file" id="upload" name="file" accept=".mp3">
                 <input type="submit">
+                <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
             </form>        
-            <p style="font-size:70%; color:lightslategrey;"><i>Akzeptierte Formate: mp3</i></p>
+            
         </mainwindow>
     
     </section>
